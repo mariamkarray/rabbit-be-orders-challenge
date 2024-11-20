@@ -26,6 +26,7 @@ Rabbit operates multiple stores across the region, processing thousands of order
 ### 2. **Optimizing a Poorly Implemented List Products API**
 
 - There is an existing API to list products (/products), but it has **poor performance** due to inefficient database queries and bad code practices. You are tasked with reviewing and optimizing this API for better performance.
+- Feel free to change the API response and request contracts (eg. DTO, Filters, ..etc) for the seek of making the API more efficient and reliable
 - Refactor and improve the performance of the current implementation to ensure it can handle large-scale traffic efficiently.
 
 ---
@@ -37,6 +38,9 @@ Rabbit operates multiple stores across the region, processing thousands of order
 - Install **Node.js** (version 20 or higher).
 - Set up any **SQL database** (such as PostgreSQL or MySQL) to store product and order information.
 - Review and understand the dependencies in the provided `package.json`. Identify libraries you may use to improve performance.
+- Run `yarn prisma:generate`
+- Run `yarn migrate:dev`
+- Run `yarn seed`
 
 ### 2. **Test Cases**
 

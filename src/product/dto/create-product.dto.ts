@@ -6,4 +6,7 @@ export class CreateProductDto {
 
   @IsString()
   category: string;
+
+  @IsString()
+  area: string;
 }

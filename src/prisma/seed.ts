@@ -3,17 +3,22 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  const productsCount = 20000;
-  const ordersCount = 500;
+  const productsCount = 70000;
+  const ordersCount = 10000;
   const maxOrderItems = 10;
 
   // Step 1: Seed Products
-  const products: { name: string; category: string }[] = [];
+  const products: { name: string; category: string; area: string }[] = [];
+
+  const areas = ['Maadi', 'Zayed', 'New Cairo', 'Giza'];
 
   for (let i = 0; i < productsCount; i++) {
+    const randomArea = areas[Math.floor(Math.random() * areas.length)];
+
     products.push({
       name: `Product ${i + 1}`,
       category: `Product ${i + 1} Category`,
+      area: randomArea,
     });
   }
 
@@ -28,7 +33,7 @@ async function main() {
   for (let i = 0; i < ordersCount; i++) {
     const order = await prisma.order.create({
       data: {
-        customerId: Math.floor(Math.random() * 1000), // Random customerId
+        customerId: Math.floor(Math.random() * 1000),
       },
     });
 
@@ -40,13 +45,14 @@ async function main() {
         productIds[Math.floor(Math.random() * productIds.length)];
       orderItems.push({
         productId: randomProductId,
-        quantity: Math.floor(Math.random() * 5) + 1, // Random quantity between 1 and 5
+        quantity: Math.floor(Math.random() * 5) + 1,
         orderId: order.id,
       });
     }
 
     await prisma.orderItem.createMany({ data: orderItems });
   }
+  console.log("Seeding finished")
 }
 
 main()
